@@ -230,9 +230,8 @@ The output should be
 ```
 
 ## General requirements
-- **We would love to see your submission written in JavaScript**. Although, you can use whatever language and framework you want. Use something that you know well.
-- **Provide a README with instructions** on how to compile and run the application.
+We would love to see your submission written in JavaScript. Although, you can use whatever language and framework you want. Use something that you know well.
 
-**IMPORTANT:**  Implement the requirements focusing on **writing the best code** you can produce.
+**IMPORTANT:** Provide a README with instructions on how to compile and run the application.
 
 **CODE SUBMISSION:** Add the code to your own Github account and send us the link.
