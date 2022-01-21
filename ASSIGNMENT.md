@@ -13,6 +13,7 @@ The goal is to parse a string chat: given a string input, the program should pro
 - You may use whatever programming language you prefer;
 - You should commit your code on GitHub (or any other SCM repository you prefer);
 - You should release your work under an OSI-approved open-source license of your choice;
+- You shouldn't copy or use Copylot while trying to solve this kata, you'll only make it harder for us to evaluate you;
 
 ## What is a chat?
 
@@ -230,7 +231,7 @@ The output should be
 
 ## General requirements
 
-The goal is to support the cases listed above in the best way you can. 
+The goal is to support the cases listed above in the best way you can and show us your workflow so we can understand better your skills. 
 
 **IMPORTANT:** Provide a README with instructions on how to compile and run the application.
 
