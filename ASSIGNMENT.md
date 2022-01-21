@@ -1,3 +1,8 @@
+
+# General requirements
+
+The goal is to solve the exercise in your own best way, showing us how you approch problems and your workflow. We may give more value to how you reached the solution with respect to the solution itself.
+
 # Split the chat phrases
 
 The following is a **TDD Kata**, an exercise in _coding_, _refactoring_ and _test-first_.
@@ -228,10 +233,6 @@ The output should be
   type: 'agent'
 }]
 ```
-
-## General requirements
-
-The goal is to support the cases listed above in the best way you can and show us your workflow so we can understand better your skills. 
 
 **IMPORTANT:** Provide a README with instructions on how to compile and run the application.
 
