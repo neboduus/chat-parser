@@ -1,21 +1,21 @@
 # Split the chat phrases
+The following is a TDD Kata, an exercise in coding, refactoring and test-first.
 
-The following is a **TDD Kata**, an exercise in _coding_, _refactoring_ and _test-first_.
+The goal is to solve the exercise in your own best way, showing us how you approch problems and your workflow. We may give more value to how you reached the solution with respect to the solution itself.
+
+## Before you start
+* Try not to read ahead.
+* Do one task at a time. The trick is to learn to work incrementally.
+* Make sure you only test for correct inputs. There is no need to test for invalid inputs for this kata.
+* Commit your code on GitHub or any other SCM repository you prefer.
+* Release your work under an OSI-approved open-source license of your choice.
+* Disable Copylot and don't watch others solutions while trying to solve this kata, you'll make it harder for us to asses your skills.
 
 ## Description
 
 The goal is to parse a string chat: given a string input, the program should produce an array of sentences as output, according to the following specification.
 
-## Before you start
-
-- Try not to read ahead, do one task at a time!
-- Make sure you only test for correct inputs;
-- You may use whatever programming language you prefer;
-- You should commit your code on GitHub (or any other SCM repository you prefer);
-- You should release your work under an OSI-approved open-source license of your choice;
-- You shouldn't copy or use Copylot while trying to solve this kata, you'll only make it harder for us to evaluate you;
-
-## What is a chat?
+### What is a chat?
 
 In our system, one of the data structure we have is the chat structure.
 
@@ -230,8 +230,7 @@ The output should be
 ```
 
 ## General requirements
-
-The goal is to support the cases listed above in the best way you can and show us your workflow so we can understand better your skills. 
+We would love to see your submission written in JavaScript. Although, you can use whatever language and framework you want. Use something that you know well.
 
 **IMPORTANT:** Provide a README with instructions on how to compile and run the application.
 
