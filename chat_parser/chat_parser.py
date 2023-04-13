@@ -6,14 +6,15 @@ DATE_MAX_INDEX = 8
 CUSTOMER_TYPE = 'customer'
 AGENT_TYPE = 'agent'
 DATE_REG_EX = r'\d{1,2}:\d{1,2}:\d{1,2}'
+AGENTS = ['Emanuele Querzola', 'Agent']
 
 
-def is_customer(mention: str) -> bool:
-    return 'Customer' in mention
+def is_agent(mention: str) -> bool:
+    return any([agent in mention for agent in AGENTS])
 
 
 def get_type(mention: str) -> str:
-    return CUSTOMER_TYPE if is_customer(mention) else AGENT_TYPE
+    return AGENT_TYPE if is_agent(mention) else CUSTOMER_TYPE
 
 
 def parse_line(line: str) -> dict:
