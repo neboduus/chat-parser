@@ -1,6 +1,6 @@
 class ChatParser:
 
     @classmethod
-    def parse(cls, ):
-        pass
+    def parse(cls, chat):
+        return None
 
