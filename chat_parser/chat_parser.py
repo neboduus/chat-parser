@@ -1,10 +1,11 @@
+import re
 from typing import List
 
 MENTION_DELIMITER = ' : '
-CHAT_LINE_DELIMITER = '\n'
 DATE_MAX_INDEX = 8
 CUSTOMER_TYPE = 'customer'
 AGENT_TYPE = 'agent'
+DATE_REG_EX = r'\d{1,2}:\d{1,2}:\d{1,2}'
 
 
 def is_customer(mention: str) -> bool:
@@ -20,22 +21,27 @@ def parse_line(line: str) -> dict:
     mention = f'{line.split(MENTION_DELIMITER)[0]}' \
               f'{MENTION_DELIMITER}'
     sentence = line.split(MENTION_DELIMITER)[1]
-    type = get_type(mention)
+    the_type = get_type(mention)
     return {
         'date': date,
         'mention': mention,
         'sentence': sentence,
-        'type': type
+        'type': the_type
     }
 
 
 def split_chat(chat: str) -> List[str]:
-    lines = chat.split(CHAT_LINE_DELIMITER)
-    return [
-        f'{line}{CHAT_LINE_DELIMITER}'
-        if idx != len(lines) - 1 else line
-        for idx, line in enumerate(lines)
+    dates = re.findall(DATE_REG_EX, chat)
+    dates_indexes = [chat.index(date) for date in dates] + [len(chat)]
+    if len(dates_indexes) == 1:
+        return [chat]
+    window_size = 2
+    lines_indexes = [
+        dates_indexes[i: i + window_size]
+        for i in range(len(dates_indexes) - window_size + 1)
     ]
+    my_list = [chat[start:end] for start, end in lines_indexes]
+    return my_list
 
 
 class ChatParser:
