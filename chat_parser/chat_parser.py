@@ -1,12 +1,16 @@
 import re
+from enum import Enum
 from typing import List
 
 MENTION_DELIMITER = ' : '
 DATE_MAX_INDEX = 8
-CUSTOMER_TYPE = 'customer'
-AGENT_TYPE = 'agent'
 DATE_REG_EX = r'\d{1,2}:\d{1,2}:\d{1,2}'
 AGENTS = ['Emanuele Querzola', 'Agent']
+
+
+class AgentType(Enum):
+    CUSTOMER = 'customer'
+    AGENT = 'agent'
 
 
 def is_agent(mention: str) -> bool:
@@ -14,7 +18,8 @@ def is_agent(mention: str) -> bool:
 
 
 def get_type(mention: str) -> str:
-    return AGENT_TYPE if is_agent(mention) else CUSTOMER_TYPE
+    return AgentType.AGENT.value \
+        if is_agent(mention) else AgentType.CUSTOMER.value
 
 
 def parse_line(line: str) -> dict:
@@ -58,7 +63,8 @@ def parse_without_mention_delimiter(date, line):
 
 
 def is_mention_delimiter(char, idx, no_date_line):
-    return f'{char}{no_date_line[idx + 1]}{no_date_line[idx + 2]}' != MENTION_DELIMITER
+    three_chars = f'{char}{no_date_line[idx + 1]}{no_date_line[idx + 2]}'
+    return three_chars != MENTION_DELIMITER
 
 
 def remove_invalid_dates_indexes(dates_indexes, chat):
