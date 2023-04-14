@@ -26,6 +26,9 @@ class TestClient(unittest.TestCase):
     def test_step_6(self):
         self.assert_test_case('step_6')
 
+    def test_step_7(self):
+        self.assert_test_case('step_7')
+
     def assert_test_case(self, test_step):
         test_case = get_test_case(test_step)
         output = self.parser.parse_chat(test_case['input'])
