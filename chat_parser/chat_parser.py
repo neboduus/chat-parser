@@ -19,6 +19,13 @@ def get_type(mention: str) -> str:
 
 def parse_line(line: str) -> dict:
     date = line[:DATE_MAX_INDEX]
+    if MENTION_DELIMITER in line:
+        return parse_with_mention_delimiter(date, line)
+    else:
+        return parse_without_mention_delimiter(date, line)
+
+
+def parse_with_mention_delimiter(date, line):
     mention = f'{line.split(MENTION_DELIMITER)[0]}' \
               f'{MENTION_DELIMITER}'
     sentence = line.split(MENTION_DELIMITER)[1]
@@ -29,6 +36,29 @@ def parse_line(line: str) -> dict:
         'sentence': sentence,
         'type': the_type
     }
+
+
+def parse_without_mention_delimiter(date, line):
+    no_date_line = line[DATE_MAX_INDEX:]
+    buffer = ''
+    for idx, char in enumerate(no_date_line):
+        buffer += char
+        if char == ' ' and idx != 0 and idx < len(line) + 2:
+            if is_mention_delimiter(char, idx, no_date_line):
+                the_type = get_type(buffer)
+                mention = date + buffer
+                sentence = line[len(mention):]
+                return {
+                    'date': date,
+                    'mention': mention,
+                    'sentence': sentence,
+                    'type': the_type
+                }
+    raise Exception('Unable to parse line')
+
+
+def is_mention_delimiter(char, idx, no_date_line):
+    return f'{char}{no_date_line[idx + 1]}{no_date_line[idx + 2]}' != MENTION_DELIMITER
 
 
 def remove_invalid_dates_indexes(dates_indexes, chat):
