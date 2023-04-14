@@ -2,7 +2,10 @@ import re
 from enum import Enum
 from typing import List
 
-from chat_parser import AGENTS, DATE_MAX_INDEX, MENTION_DELIMITER, DATE_REG_EX
+MENTION_DELIMITER = ' : '
+DATE_MAX_INDEX = 8
+DATE_REG_EX = r'\d{1,2}:\d{1,2}:\d{1,2}'
+AGENTS = ['Emanuele Querzola', 'Agent']
 
 
 class AgentType(Enum):
