@@ -32,7 +32,8 @@ def split_chat(chat: str) -> List[str]:
     return my_list
 
 
-def remove_invalid_dates_indexes(dates_indexes, chat):
+def remove_invalid_dates_indexes(dates_indexes: List[int],
+                                 chat: str) -> List[int]:
     valid_dates_indexes = []
     for date_index in dates_indexes:
         if date_index == 0:
@@ -42,7 +43,7 @@ def remove_invalid_dates_indexes(dates_indexes, chat):
     return valid_dates_indexes
 
 
-def get_lines_indexes(dates_indexes):
+def get_lines_indexes(dates_indexes: List[int]) -> List[List[int]]:
     window_size = 2
     lines_indexes = [
         dates_indexes[i: i + window_size]
@@ -59,7 +60,7 @@ def parse_line(line: str) -> dict:
         return parse_without_mention_delimiter(date, line)
 
 
-def parse_with_mention_delimiter(date, line):
+def parse_with_mention_delimiter(date: str, line: str) -> dict:
     mention = f'{line.split(MENTION_DELIMITER)[0]}' \
               f'{MENTION_DELIMITER}'
     sentence = line.split(MENTION_DELIMITER)[1]
@@ -72,7 +73,7 @@ def parse_with_mention_delimiter(date, line):
     }
 
 
-def parse_without_mention_delimiter(date, line):
+def parse_without_mention_delimiter(date: str, line: str) -> dict:
     no_date_line = line[DATE_MAX_INDEX:]
     buffer = ''
     for idx, char in enumerate(no_date_line):
@@ -100,7 +101,6 @@ def is_agent(mention: str) -> bool:
     return any([agent in mention for agent in AGENTS])
 
 
-def is_mention_delimiter(char, idx, no_date_line):
+def is_mention_delimiter(char: str, idx: int, no_date_line: str) -> bool:
     three_chars = f'{char}{no_date_line[idx + 1]}{no_date_line[idx + 2]}'
     return three_chars != MENTION_DELIMITER
-
