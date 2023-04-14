@@ -10,13 +10,42 @@ class AgentType(Enum):
     AGENT = 'agent'
 
 
-def is_agent(mention: str) -> bool:
-    return any([agent in mention for agent in AGENTS])
+class ChatParser:
+    @classmethod
+    def parse_chat(cls, chat: str) -> List[dict]:
+        chat_lines = split_chat(chat)
+        return [parse_line(line) for line in chat_lines]
 
 
-def get_type(mention: str) -> str:
-    return AgentType.AGENT.value \
-        if is_agent(mention) else AgentType.CUSTOMER.value
+def split_chat(chat: str) -> List[str]:
+    dates = re.findall(DATE_REG_EX, chat)
+    dates_indexes = [chat.index(date) for date in dates]
+    dates_indexes = remove_invalid_dates_indexes(dates_indexes, chat)
+    dates_indexes_intervals = dates_indexes + [len(chat)]
+    if len(dates_indexes_intervals) == 2:
+        return [chat]
+    lines_indexes = get_lines_indexes(dates_indexes_intervals)
+    my_list = [chat[start:end] for start, end in lines_indexes]
+    return my_list
+
+
+def remove_invalid_dates_indexes(dates_indexes, chat):
+    valid_dates_indexes = []
+    for date_index in dates_indexes:
+        if date_index == 0:
+            valid_dates_indexes.append(date_index)
+        elif chat[date_index - 1] != ' ':
+            valid_dates_indexes.append(date_index)
+    return valid_dates_indexes
+
+
+def get_lines_indexes(dates_indexes):
+    window_size = 2
+    lines_indexes = [
+        dates_indexes[i: i + window_size]
+        for i in range(len(dates_indexes) - window_size + 1)
+    ]
+    return lines_indexes
 
 
 def parse_line(line: str) -> dict:
@@ -59,45 +88,16 @@ def parse_without_mention_delimiter(date, line):
     raise Exception('Unable to parse line')
 
 
+def get_type(mention: str) -> str:
+    return AgentType.AGENT.value \
+        if is_agent(mention) else AgentType.CUSTOMER.value
+
+
+def is_agent(mention: str) -> bool:
+    return any([agent in mention for agent in AGENTS])
+
+
 def is_mention_delimiter(char, idx, no_date_line):
     three_chars = f'{char}{no_date_line[idx + 1]}{no_date_line[idx + 2]}'
     return three_chars != MENTION_DELIMITER
 
-
-def remove_invalid_dates_indexes(dates_indexes, chat):
-    valid_dates_indexes = []
-    for date_index in dates_indexes:
-        if date_index == 0:
-            valid_dates_indexes.append(date_index)
-        elif chat[date_index - 1] != ' ':
-            valid_dates_indexes.append(date_index)
-    return valid_dates_indexes
-
-
-def split_chat(chat: str) -> List[str]:
-    dates = re.findall(DATE_REG_EX, chat)
-    dates_indexes = [chat.index(date) for date in dates]
-    dates_indexes = remove_invalid_dates_indexes(dates_indexes, chat)
-    dates_indexes_intervals = dates_indexes + [len(chat)]
-    if len(dates_indexes_intervals) == 2:
-        return [chat]
-    lines_indexes = get_list_indexes(dates_indexes_intervals)
-    my_list = [chat[start:end] for start, end in lines_indexes]
-    return my_list
-
-
-def get_list_indexes(dates_indexes):
-    window_size = 2
-    lines_indexes = [
-        dates_indexes[i: i + window_size]
-        for i in range(len(dates_indexes) - window_size + 1)
-    ]
-    return lines_indexes
-
-
-class ChatParser:
-
-    @classmethod
-    def parse_chat(cls, chat: str) -> List[dict]:
-        chat_lines = split_chat(chat)
-        return [parse_line(line) for line in chat_lines]
