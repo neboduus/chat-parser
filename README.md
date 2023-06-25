@@ -1,6 +1,6 @@
 # Readme
 
-This repository constitutes a fork of [wonderflow-bv/parse-chat-kata](https://github.com/wonderflow-bv/parse-chat-kata), designed to tackle the task laid out in [ASSIGNMENT.md](./ASSIGNMENT.md) as proposed by Wonderflow.
+An example of ChatParser implemented using Python and following TDD.
 
 ### Requirements
 
