@@ -1,6 +1,7 @@
 # Readme
 
-An example of ChatParser implemented using Python and following TDD.
+An example of ChatParser implemented using Python and following TDD 
+that solves the problem stated in ASSIGNMENT.md
 
 ### Requirements
 
